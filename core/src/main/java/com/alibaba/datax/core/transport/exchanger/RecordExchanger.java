@@ -16,6 +16,7 @@
 
 package com.alibaba.datax.core.transport.exchanger;
 
+import com.alibaba.datax.common.base.DataXResultMetaData;
 import com.alibaba.datax.common.element.Record;
 import com.alibaba.datax.common.exception.CommonErrorCode;
 import com.alibaba.datax.common.exception.DataXException;
@@ -42,6 +43,15 @@ public class RecordExchanger extends TransformerExchanger implements RecordSende
 
 	private volatile boolean shutdown = false;
 
+	private DataXResultMetaData dataXResultMetaData=null;
+
+	public DataXResultMetaData getDataXResultMetaData() {
+		return dataXResultMetaData;
+	}
+
+	public void setDataXResultMetaData(DataXResultMetaData dataXResultMetaData) {
+		this.dataXResultMetaData = dataXResultMetaData;
+	}
 	@SuppressWarnings("unchecked")
 	public RecordExchanger(final int taskGroupId, final int taskId,final Channel channel, final Communication communication,List<TransformerExecution> transformerExecs, final TaskPluginCollector pluginCollector) {
 		super(taskGroupId,taskId,communication,transformerExecs, pluginCollector);

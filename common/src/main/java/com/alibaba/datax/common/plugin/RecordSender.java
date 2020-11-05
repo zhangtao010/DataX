@@ -16,6 +16,7 @@
 
 package com.alibaba.datax.common.plugin;
 
+import com.alibaba.datax.common.base.DataXResultMetaData;
 import com.alibaba.datax.common.element.Record;
 
 public interface RecordSender {
@@ -29,4 +30,7 @@ public interface RecordSender {
 	public void terminate();
 
 	public void shutdown();
+
+	public void setDataXResultMetaData(DataXResultMetaData dataXResultMetaData);
+
 }

@@ -16,6 +16,7 @@
 
 package com.alibaba.datax.common.plugin;
 
+import com.alibaba.datax.common.base.DataXResultMetaData;
 import com.alibaba.datax.common.element.Record;
 
 public interface RecordReceiver {
@@ -23,4 +24,7 @@ public interface RecordReceiver {
 	public Record getFromReader();
 
 	public void shutdown();
+
+	public DataXResultMetaData getDataXResultMetaData();
+
 }

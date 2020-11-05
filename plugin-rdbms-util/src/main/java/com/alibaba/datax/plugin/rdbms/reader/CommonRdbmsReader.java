@@ -1,5 +1,6 @@
 package com.alibaba.datax.plugin.rdbms.reader;
 
+import com.alibaba.datax.common.base.DataXResultMetaData;
 import com.alibaba.datax.common.element.BoolColumn;
 import com.alibaba.datax.common.element.BytesColumn;
 import com.alibaba.datax.common.element.DateColumn;
@@ -197,7 +198,8 @@ public class CommonRdbmsReader {
 
                 ResultSetMetaData metaData = rs.getMetaData();
                 columnNumber = metaData.getColumnCount();
-
+                DataXResultMetaData dataXResultMetaData=new DataXResultMetaData(metaData);
+                recordSender.setDataXResultMetaData(dataXResultMetaData);
                 //这个统计干净的result_Next时间
                 PerfRecord allResultPerfRecord = new PerfRecord(taskGroupId, taskId, PerfRecord.PHASE.RESULT_NEXT_ALL);
                 allResultPerfRecord.start();

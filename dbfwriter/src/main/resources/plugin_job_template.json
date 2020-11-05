@@ -1,0 +1,10 @@
+{
+    "name": "dbfwriter",
+    "parameter": {
+        "path": "",
+        "fileName": "",
+        "writeMode": "",
+        "fieldDelimiter":"",
+        "dateFormat": ""
+    }
+}

@@ -1,5 +1,6 @@
 package com.alibaba.datax.core.transport.exchanger;
 
+import com.alibaba.datax.common.base.DataXResultMetaData;
 import com.alibaba.datax.common.element.Record;
 import com.alibaba.datax.common.exception.CommonErrorCode;
 import com.alibaba.datax.common.exception.DataXException;
@@ -39,6 +40,23 @@ public class BufferedRecordExchanger implements RecordSender, RecordReceiver {
 
 	private final TaskPluginCollector pluginCollector;
 
+	private DataXResultMetaData dataXResultMetaData=null;
+
+	public DataXResultMetaData getDataXResultMetaData() {
+		if(dataXResultMetaData!=null){
+			return dataXResultMetaData;
+		}else {
+			return  channel.getDataXResultMetaData();
+		}
+	}
+
+	public void setDataXResultMetaData(DataXResultMetaData dataXResultMetaData) {
+		this.dataXResultMetaData = dataXResultMetaData;
+	}
+
+
+
+
 	@SuppressWarnings("unchecked")
 	public BufferedRecordExchanger(final Channel channel, final TaskPluginCollector pluginCollector) {
 		assert null != channel;
@@ -59,8 +77,8 @@ public class BufferedRecordExchanger implements RecordSender, RecordReceiver {
 		try {
 			BufferedRecordExchanger.RECORD_CLASS = ((Class<? extends Record>) Class
 					.forName(configuration.getString(
-                            CoreConstant.DATAX_CORE_TRANSPORT_RECORD_CLASS,
-                            "com.alibaba.datax.core.transport.record.DefaultRecord")));
+							CoreConstant.DATAX_CORE_TRANSPORT_RECORD_CLASS,
+							"com.alibaba.datax.core.transport.record.DefaultRecord")));
 		} catch (Exception e) {
 			throw DataXException.asDataXException(
 					FrameworkErrorCode.CONFIG_ERROR, e);
@@ -105,6 +123,7 @@ public class BufferedRecordExchanger implements RecordSender, RecordReceiver {
 		if(shutdown){
 			throw DataXException.asDataXException(CommonErrorCode.SHUT_DOWN_TASK, "");
 		}
+		this.channel.setDataXResultMetaData(this.getDataXResultMetaData());
 		this.channel.pushAll(this.buffer);
 		this.buffer.clear();
 		this.bufferIndex = 0;

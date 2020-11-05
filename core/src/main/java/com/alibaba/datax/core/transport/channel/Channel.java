@@ -1,5 +1,6 @@
 package com.alibaba.datax.core.transport.channel;
 
+import com.alibaba.datax.common.base.DataXResultMetaData;
 import com.alibaba.datax.common.element.Record;
 import com.alibaba.datax.common.util.Configuration;
 import com.alibaba.datax.core.statistics.communication.Communication;
@@ -47,6 +48,15 @@ public abstract class Channel {
 
     private Communication lastCommunication = new Communication();
 
+    private DataXResultMetaData dataXResultMetaData=null;
+
+    public DataXResultMetaData getDataXResultMetaData() {
+        return dataXResultMetaData;
+    }
+
+    public void setDataXResultMetaData(DataXResultMetaData dataXResultMetaData) {
+        this.dataXResultMetaData = dataXResultMetaData;
+    }
     public Channel(final Configuration configuration) {
         //channel的queue里默认record为1万条。原来为512条
         int capacity = configuration.getInt(
